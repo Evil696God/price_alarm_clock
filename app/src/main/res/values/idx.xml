@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fl_main" type="id" />
+    <item name="ll_title" type="id" />
+    <item name="ll_bottom" type="id" />
+    <item name="recyclerview" type="id" />
+    <item name="tv_test" type="id" />
+    <item name="tv_market" type="id" />
+    <item name="tv_currency" type="id" />
+    <item name="tv_price" type="id" />
+    <item name="tv_status" type="id" />
+</resources>
