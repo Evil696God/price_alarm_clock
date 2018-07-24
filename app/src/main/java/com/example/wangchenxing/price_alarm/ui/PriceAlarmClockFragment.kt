@@ -111,7 +111,8 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
                       "增加币种$sum",
                       "增加价格$sum",
                       "增加状态$sum",
-                      "增加上传状态$sum"))
+                      "增加上传状态$sum",
+                      "增加单次状态$sum"))
             }
           }.lparams(width = 0, height = wrapContent, weight = 1f)
           button {
@@ -135,7 +136,9 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
                               "修改市场",
                               "修改币种",
                               "修改价格",
-                              "修改状态", "修改上传状态"))
+                              "修改状态",
+                              "修改上传状态",
+                              "修改单次状态"))
             }
           }.lparams(
                   width = 0,

@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey
  * @description 价格闹钟提醒bean类
  */
 @Entity(tableName = "price_alarm_clock")
-data class PriceAlarmClockBean constructor(
+data class PriceAlarmClockBean(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "_id")
         var id: Int = 0,
@@ -24,8 +24,10 @@ data class PriceAlarmClockBean constructor(
         @ColumnInfo(name = "status")
         var status: String?,
         @ColumnInfo(name = "uploadData")
-        var uploadData: String?) {
+        var uploadData: String?,
+        @ColumnInfo(name = "onceFlag")
+        var onceFlag: String?) {
   @Ignore
-  constructor() : this(0, null, null, null, null, null)
+  constructor() : this(0, null, null, null, null, null, null)
 
 }
