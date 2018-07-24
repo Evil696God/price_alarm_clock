@@ -3,7 +3,6 @@ package com.example.wangchenxing.price_alarm.model
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockModule
 import com.example.wangchenxing.price_alarm.dao.PriceAlarmClockDao

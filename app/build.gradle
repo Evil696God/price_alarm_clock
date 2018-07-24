@@ -78,5 +78,4 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:latest.release'
     kapt 'android.arch.persistence.room:compiler:latest.release'
 //    implementation 'android.arch.persistence.room:rxjava2:latest.release'
-    implementation files('libs/SQLiteStudioRemote.jar')
 }

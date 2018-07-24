@@ -2,10 +2,8 @@ package com.example.wangchenxing.price_alarm.ui.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.wangchenxing.price_alarm.R
@@ -19,7 +17,7 @@ import org.jetbrains.anko.*
  * @description 价格闹钟列表适配器
  */
 class PriceAlarmClockAdapter(private val context: Context) : RecyclerView.Adapter<PriceAlarmClockAdapter.PriceAlarmClockRecyclerViewHolder>() {
-  var dataArrayList: ArrayList<PriceAlarmClockBean> = ArrayList()
+  private var dataArrayList: ArrayList<PriceAlarmClockBean> = ArrayList()
 
   override fun onCreateViewHolder(
           parent: ViewGroup?,

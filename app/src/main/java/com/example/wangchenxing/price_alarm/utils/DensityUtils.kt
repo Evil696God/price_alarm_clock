@@ -10,10 +10,9 @@ import android.util.TypedValue
  */
 object DensityUtils {
   /**
-   * dp转px
-   * @param context
-   * @param dpVal
-   * @return
+   * @data 07/24/2018 10/15
+   * @author wcx
+   * @description dp转px
    */
   fun dp2px(
           context: Context,
@@ -25,11 +24,9 @@ object DensityUtils {
   }
 
   /**
-   * sp转px
-   *
-   * @param context
-   * @param spVal
-   * @return
+   * @data 07/24/2018 10/15
+   * @author wcx
+   * @description sp转px
    */
   fun sp2px(
           context: Context,
@@ -41,11 +38,9 @@ object DensityUtils {
   }
 
   /**
-   * px转dp
-   *
-   * @param context
-   * @param pxVal
-   * @return
+   * @data 07/24/2018 10/15
+   * @author wcx
+   * @description px转dp
    */
   fun px2dp(
           context: Context,
@@ -55,11 +50,9 @@ object DensityUtils {
   }
 
   /**
-   * px转sp
-   *
-   * @param context
-   * @param pxVal
-   * @return
+   * @data 07/24/2018 10/15
+   * @author wcx
+   * @description px转sp
    */
   fun px2sp(
           context: Context,

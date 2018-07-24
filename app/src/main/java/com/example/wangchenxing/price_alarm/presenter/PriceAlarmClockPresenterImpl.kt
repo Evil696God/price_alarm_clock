@@ -13,13 +13,12 @@ import com.example.wangchenxing.price_alarm.model.PriceAlarmClockModuleImpl
  * @author wcx
  * @description 价格闹钟Presenter实现类
  */
-class PriceAlarmClockPresenterImpl(alarmClockView: PriceAlarmClockView) :
+class PriceAlarmClockPresenterImpl(private val alarmClockView: PriceAlarmClockView) :
         PriceAlarmClockPresenter,
         OnAlarmClockListener {
 
 
-  private val alarmClockView = alarmClockView
-  val priceAlarmClockDbHelper = Room.databaseBuilder(
+  private val priceAlarmClockDbHelper = Room.databaseBuilder(
           alarmClockView.getDbContext(),
           PriceAlarmClockDatabase::class.java,
           "price_alarm_clock")

@@ -12,9 +12,12 @@ import android.widget.LinearLayout
 import com.example.wangchenxing.price_alarm.R
 import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockView
+import com.example.wangchenxing.price_alarm.utils.PriceAlarmClockNotificationUtils
 import com.example.wangchenxing.price_alarm.presenter.PriceAlarmClockPresenterImpl
+import com.example.wangchenxing.price_alarm.receiver.PriceAlarmClockReceiver
 import com.example.wangchenxing.price_alarm.ui.adapter.PriceAlarmClockAdapter
 import com.example.wangchenxing.price_alarm.utils.DensityUtils
+import com.example.wangchenxing.price_alarm.utils.PriceAlarmClockUtils
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -33,16 +36,12 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
   private var priceAlarmClockPresenter: PriceAlarmClockPresenterImpl? = null
   private var dataArrayList: ArrayList<PriceAlarmClockBean> = ArrayList()
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     priceAlarmClockPresenter = PriceAlarmClockPresenterImpl(this)
   }
 
-  var sum = 0
+  private var sum = 0
   override fun onCreateView(
           inflater: LayoutInflater,
           container: ViewGroup?,
@@ -143,6 +142,35 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
                   height = wrapContent,
                   weight = 1f)
 
+          button {
+            text = "闹钟"
+            onClick {
+              PriceAlarmClockUtils.sendAlarmReceiver(
+                      0,
+                      getContext(),
+                      1)
+              PriceAlarmClockNotificationUtils.sendPriceAlarmClockNotification(
+                      getContext(),
+                      "价格通知标题",
+                      "价格通知内容",
+                      null)
+            }
+          }.lparams(
+                  width = 0,
+                  height = wrapContent,
+                  weight = 1f)
+
+          button {
+            text = "停止"
+            onClick {
+              PriceAlarmClockUtils.stopAlarmReceiver(getContext(), 1)
+              PriceAlarmClockReceiver.stopAlarmClock()
+            }
+          }.lparams(
+                  width = 0,
+                  height = wrapContent,
+                  weight = 1f)
+
         }.lparams(
                 width = matchParent,
                 height = wrapContent) {
@@ -162,10 +190,6 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
 
     priceAlarmClockPresenter!!.watchAlarmClock()
     return view
-  }
-
-  override fun onDetach() {
-    super.onDetach()
   }
 
   override fun updateUI(dataArrayList: ArrayList<PriceAlarmClockBean>) {

@@ -1,6 +1,7 @@
 package com.example.wangchenxing.price_alarm.common
 
 import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+
 /**
  * @data 07/23/2018 16/19
  * @author wcx
@@ -17,5 +18,5 @@ interface PriceAlarmClockPresenter {
   fun modifyAlarmClock(i: Int, priceAlarmClockBean: PriceAlarmClockBean)
 
   // 删除闹钟提醒
-  fun deleteAlarmClock( priceAlarmClockBean: PriceAlarmClockBean)
+  fun deleteAlarmClock(priceAlarmClockBean: PriceAlarmClockBean)
 }
