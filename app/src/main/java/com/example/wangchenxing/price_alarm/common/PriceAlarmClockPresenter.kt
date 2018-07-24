@@ -1,6 +1,6 @@
 package com.example.wangchenxing.price_alarm.common
 
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
 
 /**
  * @data 07/23/2018 16/19
@@ -9,14 +9,14 @@ import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
  */
 interface PriceAlarmClockPresenter {
   // 添加闹钟提醒
-  fun addAlarmClock(priceAlarmClockBean: PriceAlarmClockBean)
+  fun addAlarmClock(priceAlarmClockBean: PriceAlarmClockTable)
 
   // 查看闹钟提醒
   fun watchAlarmClock()
 
   // 修改闹钟提醒
-  fun modifyAlarmClock(i: Int, priceAlarmClockBean: PriceAlarmClockBean)
+  fun modifyAlarmClock(i: Int, priceAlarmClockBean: PriceAlarmClockTable)
 
   // 删除闹钟提醒
-  fun deleteAlarmClock(priceAlarmClockBean: PriceAlarmClockBean)
+  fun deleteAlarmClock(priceAlarmClockBean: PriceAlarmClockTable)
 }

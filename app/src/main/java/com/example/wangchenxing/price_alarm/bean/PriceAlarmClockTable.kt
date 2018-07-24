@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey
  * @description 价格闹钟提醒bean类
  */
 @Entity(tableName = "price_alarm_clock")
-data class PriceAlarmClockBean(
+data class PriceAlarmClockTable(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "_id")
         var id: Int = 0,

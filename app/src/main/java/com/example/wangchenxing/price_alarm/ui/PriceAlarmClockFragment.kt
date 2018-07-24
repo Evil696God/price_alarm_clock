@@ -8,9 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.example.wangchenxing.price_alarm.R
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockView
 import com.example.wangchenxing.price_alarm.presenter.PriceAlarmClockPresenterImpl
 import com.example.wangchenxing.price_alarm.receiver.PriceAlarmClockReceiver
@@ -31,10 +30,10 @@ import java.util.*
  */
 class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
 
-  private var recyclerView: RecyclerView? = null
-  private var priceAlarmClockAdapter: PriceAlarmClockAdapter? = null
-  private var priceAlarmClockPresenter: PriceAlarmClockPresenterImpl? = null
-  private var dataArrayList: ArrayList<PriceAlarmClockBean> = ArrayList()
+  private lateinit var recyclerView: RecyclerView
+  private lateinit var priceAlarmClockAdapter: PriceAlarmClockAdapter
+  private lateinit var priceAlarmClockPresenter: PriceAlarmClockPresenterImpl
+  private var dataArrayList: ArrayList<PriceAlarmClockTable> = ArrayList()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,7 +45,7 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
           inflater: LayoutInflater,
           container: ViewGroup?,
           savedInstanceState: Bundle?): View? {
-    val view = UI {
+    return UI {
       relativeLayout {
         lparams(
                 width = matchParent,
@@ -61,7 +60,6 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
                     10f)
           }
           id = R.id.ll_title
-          orientation = LinearLayout.HORIZONTAL
 
           textView {
             text = "市场"
@@ -98,14 +96,21 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
           below(R.id.ll_title)
         }
 
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = linearLayoutManager
+        priceAlarmClockAdapter = PriceAlarmClockAdapter(context)
+        recyclerView.adapter = priceAlarmClockAdapter
+
+        priceAlarmClockPresenter.watchAlarmClock()
+
         linearLayout {
           id = R.id.ll_bottom
-          orientation = LinearLayout.HORIZONTAL
 
           button {
             text = "增加"
             onClick {
-              priceAlarmClockPresenter!!.addAlarmClock(PriceAlarmClockBean(
+              priceAlarmClockPresenter.addAlarmClock(PriceAlarmClockTable(
                       0,
                       "增加市场" + ++sum,
                       "增加币种$sum",
@@ -119,7 +124,7 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
             text = "删除"
             onClick {
               if (dataArrayList.size != 0) {
-                priceAlarmClockPresenter!!.deleteAlarmClock(dataArrayList[1])
+                priceAlarmClockPresenter.deleteAlarmClock(dataArrayList[0])
               }
             }
           }.lparams(
@@ -129,9 +134,9 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
           button {
             text = "修改"
             onClick {
-              priceAlarmClockPresenter!!.modifyAlarmClock(
+              priceAlarmClockPresenter.modifyAlarmClock(
                       1,
-                      PriceAlarmClockBean(
+                      PriceAlarmClockTable(
                               0,
                               "修改市场",
                               "修改币种",
@@ -186,20 +191,12 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
       }
 
     }.view
-    val linearLayoutManager = LinearLayoutManager(context)
-    linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-    recyclerView!!.layoutManager = linearLayoutManager
-    priceAlarmClockAdapter = PriceAlarmClockAdapter(context)
-    recyclerView!!.adapter = priceAlarmClockAdapter
-
-    priceAlarmClockPresenter!!.watchAlarmClock()
-    return view
   }
 
-  override fun updateUI(dataArrayList: ArrayList<PriceAlarmClockBean>) {
+  override fun updateUI(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     this.dataArrayList = dataArrayList
-    priceAlarmClockAdapter!!.setData(dataArrayList)
-    priceAlarmClockAdapter!!.notifyDataSetChanged()
+    priceAlarmClockAdapter.setData(dataArrayList)
+    priceAlarmClockAdapter.notifyDataSetChanged()
   }
 
   override fun getDbContext(): Context {

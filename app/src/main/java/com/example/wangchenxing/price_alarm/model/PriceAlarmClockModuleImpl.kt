@@ -3,7 +3,7 @@ package com.example.wangchenxing.price_alarm.model
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockModule
 import com.example.wangchenxing.price_alarm.dao.PriceAlarmClockDao
 import com.example.wangchenxing.price_alarm.db.PriceAlarmClockDatabase
@@ -25,7 +25,7 @@ class PriceAlarmClockModuleImpl(
   val deleteAlarmClock = 4
   private val threadPoolExecutor: ThreadPoolExecutor = TemporaryThreadPoolExecutor.getThreadPoolExecutor()!!
   private val priceAlarmClockDao: PriceAlarmClockDao = priceAlarmClockDbHelper.getPriceAlarmClockDao()
-  private var dataArrayList = ArrayList<PriceAlarmClockBean>()
+  private var dataArrayList = ArrayList<PriceAlarmClockTable>()
   private val handler: Handler = @SuppressLint("HandlerLeak")
   object : Handler() {
     override fun handleMessage(msg: Message?) {
@@ -47,10 +47,10 @@ class PriceAlarmClockModuleImpl(
     }
   }
 
-  override fun addAlarmClock(priceAlarmClockBean: PriceAlarmClockBean) {
+  override fun addAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable) {
     threadPoolExecutor.execute({
       run {
-        priceAlarmClockDao.insertPriceAlarmClock(priceAlarmClockBean)
+        priceAlarmClockDao.insertPriceAlarmClock(PriceAlarmClockModel)
         selectPriceAlarmClocks()
         handler.sendEmptyMessage(addAlarmClock)
       }
@@ -67,19 +67,19 @@ class PriceAlarmClockModuleImpl(
     })
   }
 
-  override fun modifyAlarmClock(position: Int, newPriceAlarmClockBean: PriceAlarmClockBean) {
+  override fun modifyAlarmClock(position: Int, newPriceAlarmClockModel: PriceAlarmClockTable) {
     threadPoolExecutor.execute({
       run {
         if (dataArrayList.size != 0 && position < dataArrayList.size) {
-          val priceAlarmClockBean = dataArrayList[position]
-          priceAlarmClockBean.apply {
-            marketName = newPriceAlarmClockBean.marketName
-            currencyName = newPriceAlarmClockBean.currencyName
-            price = newPriceAlarmClockBean.price
-            status = newPriceAlarmClockBean.status
-            uploadData = newPriceAlarmClockBean.uploadData
+          val PriceAlarmClockModel = dataArrayList[position]
+          PriceAlarmClockModel.apply {
+            marketName = newPriceAlarmClockModel.marketName
+            currencyName = newPriceAlarmClockModel.currencyName
+            price = newPriceAlarmClockModel.price
+            status = newPriceAlarmClockModel.status
+            uploadData = newPriceAlarmClockModel.uploadData
           }
-          priceAlarmClockDao.updatePriceAlarmClock(priceAlarmClockBean)
+          priceAlarmClockDao.updatePriceAlarmClock(PriceAlarmClockModel)
 
           selectPriceAlarmClocks()
         }
@@ -88,11 +88,11 @@ class PriceAlarmClockModuleImpl(
     })
   }
 
-  override fun deleteAlarmClock(priceAlarmClockBean: PriceAlarmClockBean) {
+  override fun deleteAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable) {
     threadPoolExecutor.execute({
       run {
         if (dataArrayList.size != 0) {
-          priceAlarmClockDao.deletePriceAlarmClock(priceAlarmClockBean)
+          priceAlarmClockDao.deletePriceAlarmClock(PriceAlarmClockModel)
           selectPriceAlarmClocks()
         }
         handler.sendEmptyMessage(deleteAlarmClock)
@@ -101,7 +101,7 @@ class PriceAlarmClockModuleImpl(
   }
 
   private fun selectPriceAlarmClocks() {
-    dataArrayList = priceAlarmClockDao.selectPriceAlarmClocks() as ArrayList<PriceAlarmClockBean>
+    dataArrayList = priceAlarmClockDao.selectPriceAlarmClocks() as ArrayList<PriceAlarmClockTable>
   }
 
 }

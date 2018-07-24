@@ -3,7 +3,7 @@ package com.example.wangchenxing.price_alarm.presenter
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.migration.Migration
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockPresenter
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockView
 import com.example.wangchenxing.price_alarm.db.PriceAlarmClockDatabase
@@ -37,7 +37,7 @@ class PriceAlarmClockPresenterImpl(private val alarmClockView: PriceAlarmClockVi
           this,
           priceAlarmClockDbHelper)
 
-  override fun addAlarmClock(priceAlarmClockBean: PriceAlarmClockBean) {
+  override fun addAlarmClock(priceAlarmClockBean: PriceAlarmClockTable) {
     alarmClockModule.addAlarmClock(priceAlarmClockBean)
   }
 
@@ -45,22 +45,22 @@ class PriceAlarmClockPresenterImpl(private val alarmClockView: PriceAlarmClockVi
     alarmClockModule.watchAlarmClock()
   }
 
-  override fun modifyAlarmClock(position: Int, priceAlarmClockBean: PriceAlarmClockBean) {
+  override fun modifyAlarmClock(position: Int, priceAlarmClockBean: PriceAlarmClockTable) {
     alarmClockModule.modifyAlarmClock(position, priceAlarmClockBean)
   }
 
-  override fun deleteAlarmClock(priceAlarmClockBean: PriceAlarmClockBean) {
+  override fun deleteAlarmClock(priceAlarmClockBean: PriceAlarmClockTable) {
     alarmClockModule.deleteAlarmClock(priceAlarmClockBean)
   }
 
-  override fun onWatchSuccess(dataArrayList: ArrayList<PriceAlarmClockBean>) {
+  override fun onWatchSuccess(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     alarmClockView.updateUI(dataArrayList)
   }
 
   override fun onWatchError() {
   }
 
-  override fun onAddSuccess(dataArrayList: ArrayList<PriceAlarmClockBean>) {
+  override fun onAddSuccess(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     alarmClockView.updateUI(dataArrayList)
   }
 
@@ -68,14 +68,14 @@ class PriceAlarmClockPresenterImpl(private val alarmClockView: PriceAlarmClockVi
 
   }
 
-  override fun onModifySuccess(dataArrayList: ArrayList<PriceAlarmClockBean>) {
+  override fun onModifySuccess(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     alarmClockView.updateUI(dataArrayList)
   }
 
   override fun onModifyError() {
   }
 
-  override fun onDeleteSuccess(dataArrayList: ArrayList<PriceAlarmClockBean>) {
+  override fun onDeleteSuccess(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     alarmClockView.updateUI(dataArrayList)
   }
 

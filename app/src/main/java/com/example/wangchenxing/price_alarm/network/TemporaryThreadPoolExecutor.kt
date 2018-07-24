@@ -9,10 +9,10 @@ import java.util.concurrent.ThreadPoolExecutor
  * @description 临时线程池工具类
  */
 object TemporaryThreadPoolExecutor {
-  private var threadPoolExecutor: ThreadPoolExecutor? = null
+  private lateinit var threadPoolExecutor: ThreadPoolExecutor
 
   fun getThreadPoolExecutor(): ThreadPoolExecutor? {
-    if (threadPoolExecutor == null || threadPoolExecutor!!.isShutdown || threadPoolExecutor!!.isTerminated) {
+    if (threadPoolExecutor.isShutdown || threadPoolExecutor.isTerminated) {
       val keepAliveTime: Long = 3000
       val unit = TimeUnit.MILLISECONDS
       val workQueue: BlockingQueue<Runnable> = LinkedBlockingDeque<Runnable>()

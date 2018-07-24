@@ -4,10 +4,9 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.wangchenxing.price_alarm.R
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
 import com.example.wangchenxing.price_alarm.utils.DensityUtils
 import org.jetbrains.anko.*
 
@@ -17,7 +16,7 @@ import org.jetbrains.anko.*
  * @description 价格闹钟列表适配器
  */
 class PriceAlarmClockAdapter(private val context: Context) : RecyclerView.Adapter<PriceAlarmClockAdapter.PriceAlarmClockRecyclerViewHolder>() {
-  private var dataArrayList: ArrayList<PriceAlarmClockBean> = ArrayList()
+  private var dataArrayList: ArrayList<PriceAlarmClockTable> = ArrayList()
 
   override fun onCreateViewHolder(
           parent: ViewGroup?,
@@ -32,7 +31,6 @@ class PriceAlarmClockAdapter(private val context: Context) : RecyclerView.Adapte
                   context,
                   10f)
         }
-        orientation = LinearLayout.HORIZONTAL
 
         textView {
           id = R.id.tv_market
@@ -61,10 +59,12 @@ class PriceAlarmClockAdapter(private val context: Context) : RecyclerView.Adapte
       }
     }
     val viewHolder = PriceAlarmClockRecyclerViewHolder(view)
-    viewHolder.tvMarket = view.find(R.id.tv_market)
-    viewHolder.tvCurrency = view.find(R.id.tv_currency)
-    viewHolder.tvPrice = view.find(R.id.tv_price)
-    viewHolder.tvStatus = view.find(R.id.tv_status)
+    viewHolder.apply {
+      tvMarket = view.find(R.id.tv_market)
+      tvCurrency = view.find(R.id.tv_currency)
+      tvPrice = view.find(R.id.tv_price)
+      tvStatus = view.find(R.id.tv_status)
+    }
     return viewHolder
   }
 
@@ -76,10 +76,12 @@ class PriceAlarmClockAdapter(private val context: Context) : RecyclerView.Adapte
           holder: PriceAlarmClockRecyclerViewHolder?,
           position: Int) {
     val priceAlarmClockBean = dataArrayList[position]
-    holder!!.tvMarket!!.text = priceAlarmClockBean.marketName
-    holder.tvCurrency!!.text = priceAlarmClockBean.currencyName
-    holder.tvPrice!!.text = priceAlarmClockBean.price
-    holder.tvStatus!!.text = priceAlarmClockBean.status
+    holder?.apply {
+      tvMarket?.text = priceAlarmClockBean.marketName
+      tvCurrency?.text = priceAlarmClockBean.currencyName
+      tvPrice?.text = priceAlarmClockBean.price
+      tvStatus?.text = priceAlarmClockBean.status
+    }
   }
 
   class PriceAlarmClockRecyclerViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -89,7 +91,7 @@ class PriceAlarmClockAdapter(private val context: Context) : RecyclerView.Adapte
     internal var tvStatus: TextView? = null
   }
 
-  fun setData(dataArrayList: ArrayList<PriceAlarmClockBean>) {
+  fun setData(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     this.dataArrayList = dataArrayList
   }
 }

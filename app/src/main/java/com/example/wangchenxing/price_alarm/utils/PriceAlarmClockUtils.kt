@@ -1,6 +1,5 @@
 package com.example.wangchenxing.price_alarm.utils
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -16,9 +15,9 @@ import com.example.wangchenxing.price_alarm.receiver.PriceAlarmClockReceiver
  */
 object PriceAlarmClockUtils {
 
-  private var alarmManager: AlarmManager? = null
-  private var pendingIntent: PendingIntent? = null
-  private var intent: Intent? = null
+  private lateinit var alarmManager: AlarmManager
+  private lateinit var pendingIntent: PendingIntent
+  private lateinit var intent: Intent
 
   /**
    * @data 07/24/2018 10/02
@@ -37,14 +36,14 @@ object PriceAlarmClockUtils {
     bundle.putBoolean(
             "msg",
             true)
-    intent!!.putExtras(bundle)
-    intent!!.action = "Alarm_clock"
+    intent.putExtras(bundle)
+    intent.action = "Alarm_clock"
     pendingIntent = PendingIntent.getBroadcast(
             context,
             alarmId,
             intent,
             PendingIntent.FLAG_CANCEL_CURRENT)
-    alarmManager!!.set(
+    alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             time,
             pendingIntent)
@@ -66,16 +65,14 @@ object PriceAlarmClockUtils {
     bundle.putBoolean(
             "msg",
             false)
-    intent!!.putExtras(bundle)
-    intent!!.action = "Alarm_clock"
+    intent.putExtras(bundle)
+    intent.action = "Alarm_clock"
     pendingIntent = PendingIntent.getBroadcast(
             context,
             alarmId,
             intent,
             0)
-    if (pendingIntent != null && alarmManager != null) {
-      alarmManager!!.cancel(pendingIntent)
-      pendingIntent!!.cancel()
-    }
+    alarmManager.cancel(pendingIntent)
+    pendingIntent.cancel()
   }
 }

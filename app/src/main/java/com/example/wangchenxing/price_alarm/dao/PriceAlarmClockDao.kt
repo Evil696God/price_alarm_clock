@@ -1,7 +1,7 @@
 package com.example.wangchenxing.price_alarm.dao
 
 import android.arch.persistence.room.*
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
+import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
 import java.util.ArrayList
 
 /**
@@ -12,59 +12,24 @@ import java.util.ArrayList
 @Dao
 interface PriceAlarmClockDao {
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description 插入一个数据
-   */
   @Insert
-  fun insertPriceAlarmClock(user: PriceAlarmClockBean)
+  fun insertPriceAlarmClock(user: PriceAlarmClockTable)
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description  插入多个数据
-   */
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insertPriceAlarmClocks(arrayList: ArrayList<PriceAlarmClockBean>)
+  fun insertPriceAlarmClocks(arrayList: ArrayList<PriceAlarmClockTable>)
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description 删除数据
-   */
   @Delete
-  fun deletePriceAlarmClock(priceAlarmClockBean: PriceAlarmClockBean)
+  fun deletePriceAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable)
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description 删除全部数据
-   */
   @Query("DELETE FROM price_alarm_clock")
   fun deleteAllPriceAlarmClock()
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description 查询全部数据
-   */
   @Query("select * from price_alarm_clock")
-  fun selectPriceAlarmClocks(): List<PriceAlarmClockBean>
+  fun selectPriceAlarmClocks(): List<PriceAlarmClockTable>
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description 修改数据
-   */
   @Update
-  fun updatePriceAlarmClock(priceAlarmClockBean: PriceAlarmClockBean)
+  fun updatePriceAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable)
 
-  /**
-   * @data 07/23/2018 10/41
-   * @author wcx
-   * @description 修改多个数据
-   */
   @Update
-  fun updatePriceAlarmClocks(arrayList: ArrayList<PriceAlarmClockBean>)
+  fun updatePriceAlarmClocks(arrayList: ArrayList<PriceAlarmClockTable>)
 }
