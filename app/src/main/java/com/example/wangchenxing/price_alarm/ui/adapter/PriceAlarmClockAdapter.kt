@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.wangchenxing.price_alarm.R
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
+import com.example.wangchenxing.price_alarm.model.PriceAlarmClockTable
 import com.example.wangchenxing.price_alarm.utils.DensityUtils
 import org.jetbrains.anko.*
 

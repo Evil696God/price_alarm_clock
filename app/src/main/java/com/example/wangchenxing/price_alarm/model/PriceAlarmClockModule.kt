@@ -3,12 +3,8 @@ package com.example.wangchenxing.price_alarm.model
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
-import com.example.wangchenxing.price_alarm.common.PriceAlarmClockModule
-import com.example.wangchenxing.price_alarm.dao.PriceAlarmClockDao
-import com.example.wangchenxing.price_alarm.db.PriceAlarmClockDatabase
-import com.example.wangchenxing.price_alarm.listener.OnAlarmClockListener
 import com.example.wangchenxing.price_alarm.network.TemporaryThreadPoolExecutor
+import com.example.wangchenxing.price_alarm.presenter.PriceAlarmClockPresenter
 import java.util.concurrent.ThreadPoolExecutor
 
 /**
@@ -16,9 +12,9 @@ import java.util.concurrent.ThreadPoolExecutor
  * @author wcx
  * @description 价格闹钟Module实现类
  */
-class PriceAlarmClockModuleImpl(
-        onAlarmClockListener: OnAlarmClockListener,
-        priceAlarmClockDbHelper: PriceAlarmClockDatabase) : PriceAlarmClockModule {
+class PriceAlarmClockModule(
+        priceAlarmClockPresenter: PriceAlarmClockPresenter,
+        priceAlarmClockDbHelper: PriceAlarmClockDatabase) {
   val addAlarmClock = 1
   val watchAlarmClock = 2
   val modifyAlarmClock = 3
@@ -32,22 +28,22 @@ class PriceAlarmClockModuleImpl(
       super.handleMessage(msg)
       when (msg!!.what) {
         addAlarmClock -> {
-          onAlarmClockListener.onAddSuccess(dataArrayList)
+          priceAlarmClockPresenter.onAddSuccess(dataArrayList)
         }
         watchAlarmClock -> {
-          onAlarmClockListener.onWatchSuccess(dataArrayList)
+          priceAlarmClockPresenter.onWatchSuccess(dataArrayList)
         }
         modifyAlarmClock -> {
-          onAlarmClockListener.onModifySuccess(dataArrayList)
+          priceAlarmClockPresenter.onModifySuccess(dataArrayList)
         }
         deleteAlarmClock -> {
-          onAlarmClockListener.onDeleteSuccess(dataArrayList)
+          priceAlarmClockPresenter.onDeleteSuccess(dataArrayList)
         }
       }
     }
   }
 
-  override fun addAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable) {
+  fun addAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable) {
     threadPoolExecutor.execute({
       run {
         priceAlarmClockDao.insertPriceAlarmClock(PriceAlarmClockModel)
@@ -57,7 +53,7 @@ class PriceAlarmClockModuleImpl(
     })
   }
 
-  override fun watchAlarmClock() {
+  fun watchAlarmClock() {
     threadPoolExecutor.execute({
       run {
         selectPriceAlarmClocks()
@@ -67,7 +63,7 @@ class PriceAlarmClockModuleImpl(
     })
   }
 
-  override fun modifyAlarmClock(position: Int, newPriceAlarmClockModel: PriceAlarmClockTable) {
+  fun modifyAlarmClock(position: Int, newPriceAlarmClockModel: PriceAlarmClockTable) {
     threadPoolExecutor.execute({
       run {
         if (dataArrayList.size != 0 && position < dataArrayList.size) {
@@ -88,7 +84,7 @@ class PriceAlarmClockModuleImpl(
     })
   }
 
-  override fun deleteAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable) {
+  fun deleteAlarmClock(PriceAlarmClockModel: PriceAlarmClockTable) {
     threadPoolExecutor.execute({
       run {
         if (dataArrayList.size != 0) {

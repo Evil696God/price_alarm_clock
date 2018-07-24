@@ -9,9 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.wangchenxing.price_alarm.R
-import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockTable
-import com.example.wangchenxing.price_alarm.common.PriceAlarmClockView
-import com.example.wangchenxing.price_alarm.presenter.PriceAlarmClockPresenterImpl
+import com.example.wangchenxing.price_alarm.model.PriceAlarmClockTable
+import com.example.wangchenxing.price_alarm.presenter.PriceAlarmClockPresenter
 import com.example.wangchenxing.price_alarm.receiver.PriceAlarmClockReceiver
 import com.example.wangchenxing.price_alarm.ui.adapter.PriceAlarmClockAdapter
 import com.example.wangchenxing.price_alarm.utils.DensityUtils
@@ -28,16 +27,16 @@ import java.util.*
  * @author wcx
  * @description 价格闹钟列表界面
  */
-class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
+class PriceAlarmClockFragment : Fragment() {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var priceAlarmClockAdapter: PriceAlarmClockAdapter
-  private lateinit var priceAlarmClockPresenter: PriceAlarmClockPresenterImpl
+  private lateinit var priceAlarmClockPresenter: PriceAlarmClockPresenter
   private var dataArrayList: ArrayList<PriceAlarmClockTable> = ArrayList()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    priceAlarmClockPresenter = PriceAlarmClockPresenterImpl(this)
+    priceAlarmClockPresenter = PriceAlarmClockPresenter(this)
   }
 
   private var sum = 0
@@ -193,13 +192,13 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
     }.view
   }
 
-  override fun updateUI(dataArrayList: ArrayList<PriceAlarmClockTable>) {
+  fun updateUI(dataArrayList: ArrayList<PriceAlarmClockTable>) {
     this.dataArrayList = dataArrayList
     priceAlarmClockAdapter.setData(dataArrayList)
     priceAlarmClockAdapter.notifyDataSetChanged()
   }
 
-  override fun getDbContext(): Context {
+  fun getDbContext(): Context {
     return context
   }
 }
