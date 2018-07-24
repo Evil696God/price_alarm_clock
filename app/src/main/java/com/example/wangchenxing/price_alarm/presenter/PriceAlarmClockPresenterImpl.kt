@@ -1,6 +1,8 @@
 package com.example.wangchenxing.price_alarm.presenter
 
+import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Room
+import android.arch.persistence.room.migration.Migration
 import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockPresenter
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockView
@@ -17,7 +19,14 @@ class PriceAlarmClockPresenterImpl(private val alarmClockView: PriceAlarmClockVi
         PriceAlarmClockPresenter,
         OnAlarmClockListener {
 
+  // 更新数据库版本
+  val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+      database.execSQL("ALTER TABLE price_alarm_clock "
+              + " ADD COLUMN onceFlag TEXT");
+    }
 
+  }
   private val priceAlarmClockDbHelper = Room.databaseBuilder(
           alarmClockView.getDbContext(),
           PriceAlarmClockDatabase::class.java,

@@ -12,11 +12,11 @@ import android.widget.LinearLayout
 import com.example.wangchenxing.price_alarm.R
 import com.example.wangchenxing.price_alarm.bean.PriceAlarmClockBean
 import com.example.wangchenxing.price_alarm.common.PriceAlarmClockView
-import com.example.wangchenxing.price_alarm.utils.PriceAlarmClockNotificationUtils
 import com.example.wangchenxing.price_alarm.presenter.PriceAlarmClockPresenterImpl
 import com.example.wangchenxing.price_alarm.receiver.PriceAlarmClockReceiver
 import com.example.wangchenxing.price_alarm.ui.adapter.PriceAlarmClockAdapter
 import com.example.wangchenxing.price_alarm.utils.DensityUtils
+import com.example.wangchenxing.price_alarm.utils.PriceAlarmClockNotificationUtils
 import com.example.wangchenxing.price_alarm.utils.PriceAlarmClockUtils
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
@@ -157,6 +157,7 @@ class PriceAlarmClockFragment : Fragment(), PriceAlarmClockView {
                       "价格通知标题",
                       "价格通知内容",
                       null)
+
             }
           }.lparams(
                   width = 0,
